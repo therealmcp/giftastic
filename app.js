@@ -1,10 +1,10 @@
 var topics = [];
 
-$("btn").on("click", function() {
+$(".btn").on("click", function() {
     var topic = $(this).attr("data-name");
 
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + 
-        topic + "&api_key=YNeSnTDGKAV0njIvU7N751izO7vi9JzT";
+        topic + "&api_key=YNeSnTDGKAV0njIvU7N751izO7vi9JzT&limit=10";
 
     $.ajax({
         url: queryURL,
@@ -12,13 +12,13 @@ $("btn").on("click", function() {
     })
 
         .then(function(response) {
-
-            var topicDiv = $("<div class='topic'>");
-
+                console.log(response);
+/*             var topicDiv = $("<div class='topic'>");
+ */
             var results = response.data;
 
             for (i = 0; i < results.length; i++) {
-                if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
+                if (results[i].rating != "r" && results[i].rating != "pg-13") {
                     var gifDiv = $("<div>");
                     var rating = results[i].rating;
                     var p = $("<p>").text("Rating: " + rating);
@@ -29,7 +29,7 @@ $("btn").on("click", function() {
                     gifDiv.append(p);
                     gifDiv.append(topicImage);
 
-                    $("#gifs-here").prepend(gifDiv);
+                    $("#gifs-here").prepend(topicImage);
                 }
             }
         });
@@ -54,6 +54,6 @@ $("#add-gif").on("click", function(event) {
     renderButtons();
 });
 
-$(document).on("click", ".gif-btn");
-
+/* $(document).on("click", ".gif-btn");
+ */
 renderButtons();
